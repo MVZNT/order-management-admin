@@ -137,7 +137,7 @@ const Orders = () => {
 
                 <div className={"flex gap-2 max-lg:justify-end"}>
                     <h1 className={"text-sm self-center text-gray-400"}>Last
-                        sync: {dateFormatter(syncLogData?.syncedDate)} ({syncLogData?.spentTime})</h1>
+                        sync: {dateFormatter(syncLogData?.syncedDate || "")} ({syncLogData?.spentTime || ""})</h1>
 
                     <div
                         onClick={syncOrdersModal.onOpen}
