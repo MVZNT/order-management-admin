@@ -4,7 +4,7 @@ import {AiOutlineDelete} from "react-icons/ai";
 import {useEditAdminModal, useGetAdminInfoStore} from "@/hooks/useZustand.tsx";
 import {AdminProps} from "@/types";
 import {capitalizedText, dateFormatter} from "@/lib/utils.ts";
-import {IoStar} from "react-icons/io5";
+import {GoStarFill} from "react-icons/go";
 
 
 type AdminsTableProps = {
@@ -57,7 +57,7 @@ const AdminsTable = ({data, onEdit, onDelete}: AdminsTableProps) => {
                                             <AiOutlineDelete className={"text-[19px] text-destructive cursor-pointer"}
                                                              onClick={() => onDelete(admin.id!)}/>
 
-                                            {admin.id === id && <IoStar className={"text-[18px] text-yellow-500"}/>}
+                                            {admin.id === id && <GoStarFill className={"text-[18px] text-yellow-500"}/>}
                                         </div>
                                     </TableCell>
                                 }
