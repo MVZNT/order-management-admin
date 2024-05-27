@@ -1,0 +1,40 @@
+export enum queryKeys {
+    // admin
+    LOGIN = "LOGIN",
+    GET_ADMINS = "GET_ADMINS",
+    GET_ADMIN_INFO = "GET_ADMIN_INFO",
+
+    // worker
+    CREATE_WORKER = "CREATE_WORKER",
+    GET_WORKERS = "GET_WORKERS",
+    UPDATE_WORKER = "UPDATE_WORKER",
+    DELETE_WORKER = "DELETE_WORKER",
+
+    // role
+    GET_ROLES = "GET_ROLES",
+
+    // work orders
+    GET_ORDERS = "GET_ORDERS",
+    GET_SINGLE_ORDER = "GET_SINGLE_ORDER",
+    UPDATE_ORDER = "UPDATE_ORDER",
+    SYNC_ORDER = "SYNC_ORDER",
+    GET_SYNC_LOG = "GET_SYNC_LOG",
+
+    // task
+    CREATE_TASK = "CREATE_TASK",
+    UPDATE_TASK = "UPDATE_TASK",
+
+    // assignment
+    ASSIGN_ORDER = "ASSIGN_ORDER",
+    DELETE_ASSIGNMENT = "DELETE_ASSIGNMENT",
+
+    // job notes
+    CREATE_JOB_NOTE = "CREATE_JOB_NOTE",
+
+    // expenses
+    GET_EXPENSES = "GET_EXPENSES",
+    ADD_EXPENSE = "ADD_EXPENSE",
+
+    // reports
+    GET_REPORTS = "GET_REPORTS"
+}
