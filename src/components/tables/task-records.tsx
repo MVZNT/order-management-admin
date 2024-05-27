@@ -1,5 +1,6 @@
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table.tsx";
 import {TaskTimeRecordsType} from "@/types/tasks";
+import {formatTime, unixTimestampToFormattedDate} from "@/lib";
 
 const TaskTimeRecords = ({data}: { data: TaskTimeRecordsType[] }) => {
     return (
@@ -17,9 +18,9 @@ const TaskTimeRecords = ({data}: { data: TaskTimeRecordsType[] }) => {
                     {
                         data?.map(record => (
                             <TableRow key={record?.id}>
-                                <TableCell>{record?.start_time}</TableCell>
-                                <TableCell>{record?.end_time}</TableCell>
-                                <TableCell>{record?.spent_time}</TableCell>
+                                <TableCell>{unixTimestampToFormattedDate(record?.start_time)}</TableCell>
+                                <TableCell>{unixTimestampToFormattedDate(record?.end_time)}</TableCell>
+                                <TableCell>{formatTime(record?.spent_time)}</TableCell>
                             </TableRow>
                         ))
                     }

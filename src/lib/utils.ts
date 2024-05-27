@@ -8,7 +8,14 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const numberSpacer = (amount: number) => {
-    return parseInt(String(amount), 10).toLocaleString().replace(/,/g, " ");
+    // Split the number into integer and decimal parts with at most two decimal places
+    const [integerPart, decimalPart] = amount.toFixed(2).split(".");
+
+    // Format the integer part with spaces as thousands separators
+    const formattedIntegerPart = parseInt(integerPart, 10).toLocaleString().replace(/,/g, " ");
+
+    // Combine the formatted integer part with the decimal part
+    return decimalPart ? `${formattedIntegerPart}.${decimalPart}` : formattedIntegerPart;
 };
 
 export const customToast = (type: "SUCCESS" | "ERROR", message: string) => {
@@ -70,6 +77,38 @@ export const dateFormatterPPWReverse = (dateStr: string): string => {
 export const capitalizedText = (text: string) => {
     if (text === "QC") return text
     return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+};
+
+export const formatNumber = (num: number) => {
+    return num % 1 === 0 ? num.toString() : num.toFixed(2);
+};
+
+
+export const formatTime = (timeInMilliseconds: number) => {
+    if (timeInMilliseconds < 1000) {
+        return `${timeInMilliseconds} ms`;
+    } else if (timeInMilliseconds < 60000) {
+        return `${(timeInMilliseconds / 1000).toFixed(2)} seconds`;
+    } else {
+        const minutes = Math.floor(timeInMilliseconds / 60000);
+        const seconds: any = ((timeInMilliseconds % 60000) / 1000).toFixed(0);
+        return `${
+            minutes > 0 ? minutes + ' minute' + (minutes > 1 ? 's' : '') : ''
+        } ${seconds > 0 ? seconds + ' seconds' : ''}`;
+    }
+};
+
+export const unixTimestampToFormattedDate = (unixTimestamp: number) => {
+    const date = new Date(unixTimestamp * 1000);
+    const options: Intl.DateTimeFormatOptions = {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+    };
+    return new Intl.DateTimeFormat('en-GB', options).format(date);
 };
 
 export const wordSlicer = (word: string) => {
