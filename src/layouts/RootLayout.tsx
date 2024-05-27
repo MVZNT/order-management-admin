@@ -10,8 +10,7 @@ const RootLayout = () => {
     const adminInfo: AdminProps = getAdminInfoQuery.data?.data?.info
 
     const {setAdminInfo, setIsLoading} = useGetAdminInfoStore()
-
-
+    
     useEffect(() => {
         if (getAdminInfoQuery.isLoading) {
             setIsLoading?.(true)
@@ -20,7 +19,7 @@ const RootLayout = () => {
         if (getAdminInfoQuery.isSuccess) {
             setIsLoading?.(false)
         }
-        
+
         if (adminInfo) {
             setAdminInfo(adminInfo);
         }

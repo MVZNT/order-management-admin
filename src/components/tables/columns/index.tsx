@@ -5,7 +5,7 @@ import {FiEdit} from "react-icons/fi";
 import {Link} from "react-router-dom";
 import {useSetReportIdStore} from "@/hooks/useZustand.tsx";
 import {OrderStatusType} from "@/types/reports";
-import {capitalizedText, dateFormatterPPW} from "@/lib";
+import {capitalizedText} from "@/lib";
 
 export type OrderTableType = {
     id: number,
@@ -65,21 +65,21 @@ export const OrdersTableColumns: ColumnDef<OrderTableType>[] = [
         accessorKey: "wo_number",
         header: "WO",
         cell: ({row}) => (
-            <div className="capitalize">{row.getValue("wo_number") || ""}</div>
+            <div className="capitalize">{row.getValue("wo_number")}</div>
         ),
     },
     {
         accessorKey: "date_due",
         header: "Date Due",
         cell: ({row}) => (
-            <div className="capitalize">{dateFormatterPPW(row?.getValue("date_due") || "")}</div>
+            <div className="capitalize">{row?.getValue("date_due")}</div>
         ),
     },
     {
         accessorKey: "date_received",
         header: "Date Received",
         cell: ({row}) => (
-            <div className="capitalize">{dateFormatterPPW(row?.getValue("date_received"))}</div>
+            <div className="capitalize">{row?.getValue("date_received")}</div>
         ),
     },
     {
