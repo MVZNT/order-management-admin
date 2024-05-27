@@ -58,28 +58,28 @@ export const OrdersTableColumns: ColumnDef<OrderTableType>[] = [
         accessorKey: "status",
         header: "Status",
         cell: ({row}) => (
-            <div className="font-medium">{capitalizedText(row.getValue("status"))}</div>
+            <div className="font-medium">{capitalizedText(row?.getValue("status") || "")}</div>
         ),
     },
     {
         accessorKey: "wo_number",
         header: "WO",
         cell: ({row}) => (
-            <div className="capitalize">{row.getValue("wo_number")}</div>
+            <div className="capitalize">{row.getValue("wo_number") || ""}</div>
         ),
     },
     {
         accessorKey: "date_due",
         header: "Date Due",
         cell: ({row}) => (
-            <div className="capitalize">{dateFormatterPPW(row.getValue("date_due"))}</div>
+            <div className="capitalize">{dateFormatterPPW(row?.getValue("date_due") || "")}</div>
         ),
     },
     {
         accessorKey: "date_received",
         header: "Date Received",
         cell: ({row}) => (
-            <div className="capitalize">{dateFormatterPPW(row.getValue("date_received"))}</div>
+            <div className="capitalize">{dateFormatterPPW(row?.getValue("date_received"))}</div>
         ),
     },
     {
