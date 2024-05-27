@@ -90,6 +90,9 @@ export const useUpdateAdmin = () => {
             queryClient.invalidateQueries({
                 queryKey: [queryKeys.GET_ADMINS]
             })
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.GET_ADMIN_INFO]
+            })
             editAdminModal.onClose()
         },
         onError(error: any) {

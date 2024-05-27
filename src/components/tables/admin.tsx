@@ -39,7 +39,7 @@ const AdminsTable = ({data, onEdit, onDelete}: AdminsTableProps) => {
                                 <TableCell>{admin.name}</TableCell>
                                 <TableCell>{admin.username}</TableCell>
                                 <TableCell>•••••••••</TableCell>
-                                <TableCell>{admin?.role ? capitalizedText(admin?.role) : "--"}</TableCell>
+                                <TableCell>{admin?.role ? capitalizedText(admin.role) : "--"}</TableCell>
                                 <TableCell>{dateFormatter(admin?.createdAt!)}</TableCell>
                                 <TableCell>{dateFormatter(admin?.updatedAt!)}</TableCell>
                                 {

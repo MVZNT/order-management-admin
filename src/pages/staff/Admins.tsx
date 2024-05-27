@@ -1,7 +1,7 @@
 import {AdminsTable} from "@/components/tables";
 import {Input} from "@/components/ui/input.tsx";
 import {Button} from "@/components/ui/button.tsx";
-import {useCreateAdminModal, useEditAdminModal} from "@/hooks/useZustand.tsx";
+import {useCreateAdminModal, useEditAdminModal, useGetAdminInfoStore} from "@/hooks/useZustand.tsx";
 import {DialogModal} from "@/components/ui/dialog.tsx";
 import {AdminForm} from "@/components/forms";
 import {useDeleteAdmin, useGetAdmins} from "@/hooks";
@@ -16,6 +16,8 @@ const Admins = () => {
 
     const createAdminModal = useCreateAdminModal();
     const editAdminModal = useEditAdminModal();
+
+    const {role} = useGetAdminInfoStore()
 
     const getAdminsQuery = useGetAdmins(keyword);
     const adminsData: AdminProps[] = getAdminsQuery.data?.data?.admins
@@ -58,7 +60,7 @@ const Admins = () => {
             <div className={"flex justify-between"}>
                 <Input placeholder={"Search by name..."} className={"w-1/4"}
                        onChange={(e) => setKeyword(e.target.value)}/>
-                <Button onClick={createAdminModal.onOpen}>+ Create admin</Button>
+                {role === "ADMIN" && <Button onClick={createAdminModal.onOpen}>+ Create admin</Button>}
             </div>
 
             {

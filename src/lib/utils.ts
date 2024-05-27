@@ -68,6 +68,7 @@ export const dateFormatterPPWReverse = (dateStr: string): string => {
 };
 
 export const capitalizedText = (text: string) => {
+    if (text === "QC") return text
     return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
 };
 

@@ -2,7 +2,7 @@ import {WorkersTable} from "@/components/tables";
 import {Input} from "@/components/ui/input.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {DialogModal} from "@/components/ui/dialog.tsx";
-import {useCreateWorkerModal, useEditWorkerModal} from "@/hooks/useZustand.tsx";
+import {useCreateWorkerModal, useEditWorkerModal, useGetAdminInfoStore} from "@/hooks/useZustand.tsx";
 import {WorkerForm} from "@/components/forms";
 import {WorkerType} from "@/types/worker";
 import {useDeleteWorker, useGetWorkers} from "@/hooks/useWorker.ts";
@@ -16,6 +16,8 @@ const Workers = () => {
 
     const createWorkerModal = useCreateWorkerModal();
     const editWorkerModal = useEditWorkerModal();
+
+    const {role} = useGetAdminInfoStore()
 
     const getWorkersQuery = useGetWorkers(keyword)
     const workersData: WorkerType[] = getWorkersQuery.data?.data?.workers
@@ -59,7 +61,7 @@ const Workers = () => {
             <div className={"flex justify-between"}>
                 <Input placeholder={"Search by name..."} className={"w-1/4"}
                        onChange={(e) => setKeyword(e.target.value)}/>
-                <Button onClick={createWorkerModal.onOpen}>+ Create worker</Button>
+                {role === "ADMIN" && <Button onClick={createWorkerModal.onOpen}>+ Create worker</Button>}
             </div>
 
             {
