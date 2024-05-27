@@ -28,7 +28,7 @@ const AssignWorker = ({isInOrderInfo = false, selected_orders}: {
         }
 
         const payload = {
-            worker_id: +selectedWorker.key,
+            worker_id: +selectedWorker.key!,
             report_ids: selected_orders.map(item => item.report_id),
         }
 
