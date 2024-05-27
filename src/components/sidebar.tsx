@@ -11,9 +11,6 @@ const Sidebar = () => {
 
     const {name, role, isLoading} = useGetAdminInfoStore()
 
-    console.log(name)
-    console.log(role)
-    
     const handleLogout = () => {
         const isOk = window.confirm("Are you sure?");
         if (isOk) {
@@ -66,7 +63,7 @@ const Sidebar = () => {
                             <div className={"flex gap-1"}>
                                 <span>{name}</span>
                                 <span
-                                    className={"text-xs self-center mt-[2px] text-orange-600"}>({role !== undefined && String(role).toLowerCase()})</span>
+                                    className={"text-xs self-center mt-[2px] text-orange-600"}>({role ? role.toLowerCase() : "--"})</span>
                             </div>
                         </div>
                 }
