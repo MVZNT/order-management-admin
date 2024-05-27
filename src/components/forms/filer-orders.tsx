@@ -160,7 +160,7 @@ const FilterOrdersForm = () => {
 
             <div className={"flex justify-end mt-2 gap-3"}>
                 <Button
-                    disabled={!report_id && !city && !state && !status && !address && !zip_code && !wo_number}
+                    disabled={getOrdersQuery.isFetching || (!report_id && !city && !state && !status && !address && !zip_code && !wo_number)}
                     isLoading={getOrdersQuery.isFetching}
                     className={"w-1/5 flex items-center gap-1"} onClick={onSubmit}>
                     <LuSearch className={"text-xl"}/>

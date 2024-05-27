@@ -133,7 +133,11 @@ const AdminForm = ({data, action}: AdminFormType) => {
                         )}
                     />
 
-                    <Button>{action === "CREATE" ? "Create" : "Save changes"}</Button>
+                    <Button
+                        isLoading={createAdminMutation.isPending || editAdminMutation.isPending}
+                    >
+                        {action === "CREATE" ? "Create" : "Save changes"}
+                    </Button>
                 </div>
             </form>
         </Form>
