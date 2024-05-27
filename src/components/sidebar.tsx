@@ -63,7 +63,7 @@ const Sidebar = () => {
                             <div className={"flex gap-1"}>
                                 <span>{name}</span>
                                 <span
-                                    className={"text-xs self-center mt-[2px] text-orange-600"}>({role})</span>
+                                    className={"text-xs self-center mt-[2px] text-orange-600"}>(role)</span>
                             </div>
                         </div>
                 }
