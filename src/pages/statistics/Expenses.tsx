@@ -78,7 +78,7 @@ const Expenses = () => {
                     </div>
 
                     <div className={"flex gap-1"}>
-                        <span>Spendings: </span>
+                        <span>Spendings <span className={"text-xs"}>(expense for company)</span>: </span>
                         <span
                             className={"font-medium text-destructive"}>{numberSpacer(expensesData?.stats?.earnings || 0)}</span>
                     </div>
