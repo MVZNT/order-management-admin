@@ -1,4 +1,4 @@
-export type ExpenseActionEnum = "EARNING" | "PENALTY"
+export type ExpenseActionEnum = "EARNING" | "SPENDING"
 
 export type GetExpensesQuery = {
     page?: number,
@@ -32,7 +32,7 @@ export type SingleExpenseType = {
 
 export type ExpenseStatsType = {
     total: number,
-    earnings: number,
+    spendings: number,
     penalties: number
 }
 

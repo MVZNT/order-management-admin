@@ -70,7 +70,7 @@ const Expenses = () => {
 
             <div className={"flex gap-10 text-sm mb-3"}>
                 <div
-                    className={"flex w-[45%] text-sm items-center justify-evenly bg-white px-3 border rounded"}>
+                    className={"flex w-[55%] text-sm items-center justify-evenly bg-white px-3 border rounded"}>
                     <div className={"flex gap-1"}>
                         <span>Total: </span>
                         <span
@@ -80,7 +80,7 @@ const Expenses = () => {
                     <div className={"flex gap-1"}>
                         <span>Spendings <span className={"text-xs"}>(expense for company)</span>: </span>
                         <span
-                            className={"font-medium text-destructive"}>{numberSpacer(expensesData?.stats?.earnings || 0)}</span>
+                            className={"font-medium text-destructive"}>{numberSpacer(expensesData?.stats?.spendings || 0)}</span>
                     </div>
 
                     <div className={"flex gap-1"}>

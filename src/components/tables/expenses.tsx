@@ -1,6 +1,6 @@
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table.tsx";
 import {SingleExpenseType} from "@/types/expense";
-import {dateFormatter, formatNumber} from "@/lib";
+import {dateFormatter, numberSpacer} from "@/lib";
 
 const ExpensesTable = ({data}: { data: SingleExpenseType[] }) => {
     return (
@@ -28,11 +28,11 @@ const ExpensesTable = ({data}: { data: SingleExpenseType[] }) => {
                                 </TableCell>
                                 <TableCell className={"font-medium"}>
                                     {
-                                        expense.action === "EARNING"
+                                        expense.action === "SPENDING"
                                             ? <span
-                                                className={"text-destructive"}>{formatNumber(expense.amount)}</span>
+                                                className={"text-destructive"}>{numberSpacer(expense.amount)}</span>
                                             : <span
-                                                className={"text-green-600"}>{formatNumber(expense.amount)}</span>
+                                                className={"text-green-600"}>{numberSpacer(expense.amount)}</span>
                                     }
                                 </TableCell>
                                 <TableCell className={"lowercase"}>{expense.action}</TableCell>

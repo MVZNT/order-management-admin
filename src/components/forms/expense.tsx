@@ -82,7 +82,7 @@ const ExpenseForm = () => {
                                 <FormControl>
                                     <Select
                                         data={[
-                                            {id: "EARNING", name_uz: "Earning"},
+                                            {id: "SPENDING", name_uz: "Spending (expense for company)"},
                                             {id: "PENALTY", name_uz: "Penalty"},
                                         ]}
                                         defaultValue="Select expense action"
