@@ -11,6 +11,9 @@ class Task {
     updateCompletionStatus = async (data: UpdateCompletionStatusType) => {
         return await api.put(`/task/status-change`, data)
     }
+    delete = async (taskId: number) => {
+        return await api.delete(`/task/${taskId}`);
+    }
 }
 
 export const taskService = new Task();

@@ -9,10 +9,12 @@ import {TaskTimeRecordsTable} from "@/components/tables/index.ts";
 import {useState} from "react";
 import {TaskForm} from "@/components/forms";
 import {ChangeCompletionStatus} from "@/components";
+import {AiOutlineDelete} from "react-icons/ai";
 
-const TasksTable = ({data, onChangeIsVisible}: {
+const TasksTable = ({data, onChangeIsVisible, onDelete}: {
     data: SingleTaskType[],
     onChangeIsVisible: (taskId: number, currentStatus: boolean) => void
+    onDelete: (id: number) => void
 }) => {
     const [task, setTask] = useState<SingleTaskType>()
     const taskTimeRecordsModal = useTaskTimeRecordsModal()
@@ -104,6 +106,11 @@ const TasksTable = ({data, onChangeIsVisible}: {
                                                 onHandleTask(task.id)
                                             }}
                                             className="text-[18px] text-amber-700 opacity-60 font-bold cursor-pointer"/>
+
+                                        <AiOutlineDelete
+                                            className={"text-[19px] text-destructive cursor-pointer"}
+                                            onClick={() => onDelete(task.id)}
+                                        />
                                     </div>
                                 </TableCell>
                             </TableRow>
@@ -112,7 +119,6 @@ const TasksTable = ({data, onChangeIsVisible}: {
                 </TableBody>
             </Table>
         </>
-
     )
 };
 

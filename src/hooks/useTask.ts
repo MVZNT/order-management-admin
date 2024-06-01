@@ -80,3 +80,25 @@ export const useUpdateTaskCompletionStatus = () => {
         },
     });
 };
+
+export const useDeleteTask = () => {
+    return useMutation({
+        mutationKey: [queryKeys.UPDATE_TASK],
+        mutationFn: (taskId: number) => {
+            return taskService.delete(taskId);
+        },
+        onSuccess(res) {
+            customToast("SUCCESS", "Task is deleted successfully!");
+            queryClient.invalidateQueries({
+                queryKey: [queryKeys.GET_SINGLE_ORDER],
+            })
+        },
+        onError(error: any) {
+            console.log(error);
+            customToast(
+                "ERROR",
+                error?.response?.data?.message || "Error while deleting task!"
+            );
+        },
+    });
+};

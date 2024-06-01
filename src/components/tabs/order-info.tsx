@@ -9,7 +9,7 @@ import {AssignWorker, TaskForm} from "@/components/forms";
 import {DialogModal} from "@/components/ui/dialog.tsx";
 import {useAssignWorkerModal, useCreateTaskModal} from "@/hooks/useZustand.tsx";
 import {useDeleteAssignment} from "@/hooks/useAssignment.ts";
-import {useUpdateTask} from "@/hooks/useTask.ts";
+import {useDeleteTask, useUpdateTask} from "@/hooks/useTask.ts";
 import {useEffect, useState} from "react";
 import {useUpdateOrder} from "@/hooks/useOrder.ts";
 import {useParams} from "react-router-dom";
@@ -52,6 +52,7 @@ const OrderInfoTab = ({orderStatus, data}: { orderStatus: OrderStatusType, data:
     const editTaskMutation = useUpdateTask()
     const editOrderMutation = useUpdateOrder()
     const deleteAssignmentMutation = useDeleteAssignment()
+    const deleteTaskMutation = useDeleteTask()
 
     const onSaveChanges = () => {
         editOrderMutation.mutate({
@@ -64,6 +65,13 @@ const OrderInfoTab = ({orderStatus, data}: { orderStatus: OrderStatusType, data:
         const isOk = confirm("Are you sure to unassign this worker?")
         if (isOk) {
             deleteAssignmentMutation.mutate(assignmentId)
+        }
+    }
+
+    const onDeleteTask = (taskId: number) => {
+        const isOk = confirm("Are you sure to delete this task?")
+        if (isOk) {
+            deleteTaskMutation.mutate(taskId)
         }
     }
 
@@ -337,7 +345,10 @@ const OrderInfoTab = ({orderStatus, data}: { orderStatus: OrderStatusType, data:
                         </div>
 
                         <div className={"bg-white w-full"}>
-                            <TasksTable data={data?.tasks} onChangeIsVisible={onChangeIsVisible}/>
+                            <TasksTable
+                                data={data?.tasks} onChangeIsVisible={onChangeIsVisible}
+                                onDelete={onDeleteTask}
+                            />
                         </div>
                     </div>
                 </div>

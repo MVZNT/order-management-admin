@@ -30,9 +30,9 @@ const ExpensesTable = ({data}: { data: SingleExpenseType[] }) => {
                                     {
                                         expense.action === "EARNING"
                                             ? <span
-                                                className={"text-green-600"}>+{formatNumber(expense.amount)}</span>
+                                                className={"text-destructive"}>{formatNumber(expense.amount)}</span>
                                             : <span
-                                                className={"text-destructive"}>-{formatNumber(expense.amount)}</span>
+                                                className={"text-green-600"}>{formatNumber(expense.amount)}</span>
                                     }
                                 </TableCell>
                                 <TableCell className={"lowercase"}>{expense.action}</TableCell>

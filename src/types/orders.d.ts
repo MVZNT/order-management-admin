@@ -12,6 +12,7 @@ export type GetOrdersQueryType = {
     city?: string,
     state?: string,
     zip_code?: string
+    workerId?: number
 }
 
 export type SingleOrderType = {

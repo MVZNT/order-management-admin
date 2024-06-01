@@ -11,8 +11,11 @@ class Orders {
             loan_number,
             state,
             zip_code,
-            address
+            address,
+            wo_number,
+            workerId
         } = query
+
 
         return await api.get(`/orders`, {
             params: {
@@ -23,7 +26,9 @@ class Orders {
                 loan_number,
                 state,
                 zip_code,
-                address
+                address,
+                org_wo_number: wo_number,
+                workerId
             }
         })
     }

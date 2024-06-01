@@ -1,13 +1,16 @@
 import {Input} from "@/components/ui/input.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {LuSearch} from "react-icons/lu";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useGetOrders} from "@/hooks/useOrder.ts";
 import {useFilterOrdersModal, useFilterOrdersStore} from "@/hooks/useZustand.tsx";
 import toast, {Toaster} from "react-hot-toast";
 import {MdOutlineClear} from "react-icons/md";
 import {Select} from "@/components/ui/select.tsx";
 import {OrderStatusType} from "@/types/reports";
+import {SearchableSelect} from "@/components";
+import {useGetWorkers} from "@/hooks/useWorker.ts";
+import {WorkerType} from "@/types/worker";
 
 const countMap = new Map<number, number>();
 
@@ -20,15 +23,13 @@ const FilterOrdersForm = () => {
         address, setAddress,
         city, setCity,
         state, setState,
-        zip_code, setZipCode
+        worker, setWorker
     } = useFilterOrdersStore()
-
-    const [isOnFilter, setIsOnFilter] = useState<boolean>(false)
-
-    const [submitted, setSubmitted] = useState<boolean>(false);
-
     const filterOrdersModal = useFilterOrdersModal()
 
+    const [isOnFilter, setIsOnFilter] = useState<boolean>(false)
+    const [submitted, setSubmitted] = useState<boolean>(false);
+    const [searchWorkerKeyword, setSearchWorkerKeyword] = useState<string>("")
 
     const getOrdersQuery = useGetOrders({
         report_id,
@@ -36,46 +37,54 @@ const FilterOrdersForm = () => {
         state,
         status,
         address,
-        zip_code,
-        wo_number
+        wo_number,
+        workerId: worker?.key ? +worker.key : undefined
     }, submitted)
+    const getWorkersQuery = useGetWorkers(searchWorkerKeyword)
+
+    const workersData: WorkerType[] = getWorkersQuery.data?.data?.workers
 
     const onSubmit = () => {
-        if (report_id || city || state || status || zip_code || address) {
+        if (report_id || city || state || status || address || wo_number || worker) {
             setSubmitted(true);
-            setIsOnFilter(true)
+            setIsOnFilter(true);
         }
     }
 
     const onClearFilter = () => {
-        setIsOnFilter(false)
-        setIsFiltered?.(false)
+        setIsOnFilter(false);
+        setIsFiltered?.(false);
 
-        setSubmitted(true)
+        setReportId?.(0);
+        setWoNumber?.("");
+        setStatus?.("");
+        setAddress?.("");
+        setCity?.("");
+        setState?.("");
+        setWorker?.({
+            key: 0,
+            value: undefined
+        });
 
-        setReportId?.(0)
-        setWoNumber?.("")
-        setStatus?.("")
-        setAddress?.("")
-        setCity?.("")
-        setState?.("")
-        setZipCode?.("")
+        setSubmitted(true);
     }
 
-    if (submitted && getOrdersQuery.isFetchedAfterMount) {
-        setSubmitted(false);
-        if (isOnFilter) {
-            setIsFiltered?.(true)
-            filterOrdersModal.onClose()
-        }
-
-        if (countMap.get(1) !== 1) {
+    useEffect(() => {
+        if (submitted && getOrdersQuery.isFetchedAfterMount) {
+            setSubmitted(false);
             if (isOnFilter) {
-                countMap.set(1, 1)
-                return toast.success("Fetched successfully!")
+                setIsFiltered?.(true);
+                filterOrdersModal.onClose();
+                toast.success("Fetched successfully!");
+            } else {
+                countMap.clear();
             }
         }
-    }
+    }, [submitted, getOrdersQuery.isFetchedAfterMount]);
+
+    useEffect(() => {
+        getWorkersQuery.refetch();
+    }, [searchWorkerKeyword]);
 
     return (
         <div className={"flex flex-col gap-4"}>
@@ -88,7 +97,7 @@ const FilterOrdersForm = () => {
                 <span className={"w-1/2 h-[1px] bg-black/40"}></span>
             </div>
 
-            <div className={"grid grid-cols-4 gap-4"}>
+            <div className={"grid grid-cols-3 gap-4"}>
                 <div className={"flex flex-col gap-1 text-sm"}>
                     <span className={"font-medium text-gray-700"}>Report ID:</span>
                     <Input
@@ -149,18 +158,26 @@ const FilterOrdersForm = () => {
                 </div>
 
                 <div className={"flex flex-col gap-1 text-sm"}>
-                    <span className={"font-medium text-gray-700"}>Zip Code:</span>
-                    <Input
-                        value={zip_code}
-                        placeholder={'enter zip code...'}
-                        onChange={(e) => setZipCode?.(e.target.value)}
+                    <span className={"font-medium text-gray-700"}>Worker:</span>
+                    <SearchableSelect
+                        className={"w-full"}
+                        defaultPlaceholder={"Select worker"}
+                        data={workersData?.map(worker => {
+                            return {
+                                key: worker.id,
+                                value: worker.name
+                            }
+                        })}
+                        selectedItem={worker}
+                        onSelected={setWorker}
+                        setSearchValue={setSearchWorkerKeyword}
                     />
                 </div>
             </div>
 
             <div className={"flex justify-end mt-2 gap-3"}>
                 <Button
-                    disabled={getOrdersQuery.isFetching || (!report_id && !city && !state && !status && !address && !zip_code && !wo_number)}
+                    disabled={getOrdersQuery.isFetching || (!report_id && !city && !state && !status && !address && !wo_number && !worker?.key)}
                     isLoading={getOrdersQuery.isFetching}
                     className={"w-1/5 flex items-center gap-1"} onClick={onSubmit}>
                     <LuSearch className={"text-xl"}/>
@@ -169,7 +186,7 @@ const FilterOrdersForm = () => {
 
                 <Button
                     onClick={onClearFilter}
-                    disabled={!report_id && !city && !state && !status && !address && !zip_code && !wo_number}
+                    disabled={!report_id && !city && !state && !status && !address && !wo_number && !worker?.key}
                     className={"bg-gray-600 hover:bg-gray-600 text-white py-1 px-3 rounded-md shadow flex items-center gap-1 border cursor-pointer"}>
                     <MdOutlineClear/>
                     <span>Clear filter</span>

@@ -1,6 +1,7 @@
 import {ModalProps} from "@/types/zustand";
 import {create} from "zustand";
 import {AdminProps} from "@/types";
+import {SelectItemProps} from "@/components/searchable-select.tsx";
 
 // worker
 export const useCreateWorkerModal = create<ModalProps>((set) => ({
@@ -119,6 +120,7 @@ interface FilterOrderState {
     city?: string;
     state?: string;
     zip_code?: string;
+    worker?: SelectItemProps
     setReportId?: (reportId: number) => void;
     setWoNumber?: (woNumber: string) => void;
     setStatus?: (status: string) => void;
@@ -127,6 +129,7 @@ interface FilterOrderState {
     setState?: (state: string) => void;
     setZipCode?: (zip_code: string) => void;
     setIsFiltered?: (isFiltered: boolean) => void;
+    setWorker?: (data: SelectItemProps | undefined) => void
 }
 
 export const useFilterOrdersStore = create<FilterOrderState>((set) => ({
@@ -138,6 +141,7 @@ export const useFilterOrdersStore = create<FilterOrderState>((set) => ({
     city: "",
     state: "",
     zip_code: "",
+    worker: {},
     setReportId: (reportId: number) => set({report_id: reportId}),
     setWoNumber: (woNumber: string) => set({wo_number: woNumber}),
     setStatus: (status: string) => set({status: status}),
@@ -146,8 +150,8 @@ export const useFilterOrdersStore = create<FilterOrderState>((set) => ({
     setState: (state: string) => set({state: state}),
     setZipCode: (zip_code: string) => set({zip_code: zip_code}),
     setIsFiltered: (isFiltered: boolean) => set({isFiltered: isFiltered}),
+    setWorker: (data: SelectItemProps | undefined) => set({worker: data})
 }));
-
 
 // set reportId state
 export const useSetReportIdStore = create<{

@@ -80,13 +80,13 @@ const Expenses = () => {
                     <div className={"flex gap-1"}>
                         <span>Spendings: </span>
                         <span
-                            className={"font-medium text-green-600"}>+{numberSpacer(expensesData?.stats?.earnings || 0)}</span>
+                            className={"font-medium text-destructive"}>{numberSpacer(expensesData?.stats?.earnings || 0)}</span>
                     </div>
 
                     <div className={"flex gap-1"}>
                         <span>Penalties:</span>
                         <span
-                            className={"font-medium text-destructive"}>-{numberSpacer(expensesData?.stats?.penalties || 0)}</span>
+                            className={"font-medium text-green-600"}>{numberSpacer(expensesData?.stats?.penalties || 0)}</span>
                     </div>
                 </div>
 
