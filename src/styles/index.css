@@ -1,0 +1,13 @@
+.reports_table {
+    display: flex;
+}
+
+.reports_table span {
+    min-width: 200px;
+    width: auto;
+    text-align: start;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

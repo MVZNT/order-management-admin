@@ -98,6 +98,19 @@ export const formatTime = (timeInMilliseconds: number) => {
     }
 };
 
+export const formatTimeSeconds = (timeInSeconds: number): string => {
+    const hours = Math.floor(timeInSeconds / 3600);
+    const minutes = Math.floor((timeInSeconds % 3600) / 60);
+    const seconds = timeInSeconds % 60;
+
+    const hoursDisplay = hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''} ` : '';
+    const minutesDisplay = minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''} ` : '';
+    const secondsDisplay = seconds > 0 ? `${seconds} second${seconds > 1 ? 's' : ''}` : '';
+
+    return `${hoursDisplay}${minutesDisplay}${secondsDisplay}`.trim();
+};
+
+
 export const unixTimestampToFormattedDate = (unixTimestamp: number) => {
     const date = new Date(unixTimestamp * 1000);
     const options: Intl.DateTimeFormatOptions = {

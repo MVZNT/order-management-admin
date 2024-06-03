@@ -4,7 +4,7 @@ import {InternalServerError, NotFound, OrderInfo, Orders} from "./pages";
 import {AuthChecker} from "./middlewares";
 
 import {Admins, Workers} from "@/pages/staff/index";
-import {Expenses, Reports} from "@/pages/statistics";
+import {Expenses, ReportsNew} from "@/pages/statistics";
 
 function App() {
     return (
@@ -26,7 +26,7 @@ function App() {
 
                 <Route path={"/statistics"} element={<StatisticsLayout/>}>
                     <Route path={"expenses"} element={<Expenses/>}/>
-                    <Route path={"reports"} element={<Reports/>}/>
+                    <Route path={"reports"} element={<ReportsNew/>}/>
                 </Route>
 
                 {/*<Route path={"/settings"} element={<SettingsLayout/>}>*/}
@@ -35,7 +35,7 @@ function App() {
 
                 <Route path="*" element={<NotFound/>}/>
             </Route>
-            
+
             <Route path="/500" element={<InternalServerError/>}/>
 
             {/* Auth layout */}

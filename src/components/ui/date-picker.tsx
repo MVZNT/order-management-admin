@@ -8,10 +8,11 @@ import {Calendar} from "@/components/ui/calendar"
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover"
 import {MdOutlineClear} from "react-icons/md";
 
-const DatePickerDemo = ({placeholder, date, setDate}: {
+const DatePickerDemo = ({placeholder, date, setDate, className}: {
     placeholder: string,
     date?: Date | undefined,
-    setDate?: (date: Date | undefined) => void
+    setDate?: (date: Date | undefined) => void,
+    className?: React.ReactNode
 }) => {
     const [isOpen, setIsOpen] = React.useState(false)
     const [isChoosingDate, setIsChoosingDate] = React.useState<boolean>(false)
@@ -38,7 +39,7 @@ const DatePickerDemo = ({placeholder, date, setDate}: {
                         setIsChoosingDate(true)
                     }}
                     className={cn(
-                        "w-full flex gap-1 items-center bg-white px-3 rounded border border-black/20 cursor-pointer",
+                        "w-full flex gap-1 items-center bg-white px-3 py-[8px] text-sm rounded border border-black/20 cursor-pointer",
                         !date && "text-muted-foreground"
                     )}
                 >
