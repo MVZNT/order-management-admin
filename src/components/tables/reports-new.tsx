@@ -58,7 +58,7 @@ const ReportsTableNew = ({data}: ReportTableProps) => {
                                                         <TableCell>{numberSpacer(task.price | 0)} usd</TableCell>
                                                         <TableCell>{numberSpacer(task.total | 0)} usd</TableCell>
                                                         <TableCell>{formatTimeSeconds(task.completion?.spent_time | 0)}</TableCell>
-                                                        <TableCell>{numberSpacer(task.completion?.spent_amount | 0)} usd</TableCell>
+                                                        <TableCell>{task.completion?.spent_amount | 0} usd</TableCell>
                                                     </TableRow>
 
                                                     {index === array.length - 1 && (
@@ -68,7 +68,7 @@ const ReportsTableNew = ({data}: ReportTableProps) => {
                                                             <TableCell></TableCell>
                                                             <TableCell>{numberSpacer(order.task.overall.total_tasks_price | 0)} usd</TableCell>
                                                             <TableCell>{formatTimeSeconds(order.task.overall.spent_time)}</TableCell>
-                                                            <TableCell>{numberSpacer(order.task.overall.spent_amount | 0)} usd</TableCell>
+                                                            <TableCell>{order.task.overall.spent_amount | 0} usd</TableCell>
                                                         </TableRow>
                                                     )}
                                                 </React.Fragment>
