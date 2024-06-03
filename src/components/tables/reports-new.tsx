@@ -58,7 +58,7 @@ const ReportsTableNew = ({data}: ReportTableProps) => {
                                                         <TableCell>{numberSpacer(task.price | 0)} usd</TableCell>
                                                         <TableCell>{numberSpacer(task.total | 0)} usd</TableCell>
                                                         <TableCell>{formatTimeSeconds(task.completion?.spent_time | 0)}</TableCell>
-                                                        <TableCell>{numberSpacer(task.completion.spent_amount)} usd</TableCell>
+                                                        <TableCell>{numberSpacer(task.completion?.spent_amount)} usd</TableCell>
                                                     </TableRow>
 
                                                     {index === array.length - 1 && (
@@ -97,7 +97,7 @@ const ReportsTableNew = ({data}: ReportTableProps) => {
 
                     <div className={"flex gap-1"}>
                         <span>Total profit:</span>
-                        <h1 className={"font-medium"}>{numberSpacer(data?.orders?.overall?.total_profit | 0)} usd</h1>
+                        <h1 className={"font-medium"}>{numberSpacer(Number(data?.orders?.overall?.total_profit))} usd</h1>
                     </div>
                 </div>
             </Accordion>
