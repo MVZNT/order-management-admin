@@ -7,7 +7,7 @@ import {useFilterOrdersModal, useFilterOrdersStore} from "@/hooks/useZustand.tsx
 import toast, {Toaster} from "react-hot-toast";
 import {MdOutlineClear} from "react-icons/md";
 import {Select} from "@/components/ui/select.tsx";
-import {OrderStatusType} from "@/types/reports";
+import {OrderStatus} from "@/types/reports";
 import {SearchableSelect} from "@/components";
 import {useGetWorkers} from "@/hooks/useWorker.ts";
 import {WorkerType} from "@/types/worker";
@@ -126,7 +126,7 @@ const FilterOrdersForm = () => {
                             {id: "UNCOMPLETED", name_uz: "Uncompleted"},
                             {id: "REJECTED", name_uz: "Rejected"},
                         ]}
-                        selectedValue={(value) => setStatus?.(value as OrderStatusType)}
+                        selectedValue={(value) => setStatus?.(value as OrderStatus)}
                     />
                 </div>
 
