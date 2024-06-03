@@ -13,9 +13,9 @@ import {useDeleteTask, useUpdateTask} from "@/hooks/useTask.ts";
 import {useEffect, useState} from "react";
 import {useUpdateOrder} from "@/hooks/useOrder.ts";
 import {useParams} from "react-router-dom";
-import {OrderStatusType} from "@/types/reports";
+import {OrderStatus} from "@/types/reports";
 
-const OrderInfoTab = ({orderStatus, data}: { orderStatus: OrderStatusType, data: SingleOrderType }) => {
+const OrderInfoTab = ({orderStatus, data}: { orderStatus: OrderStatus, data: SingleOrderType }) => {
     const createTaskModal = useCreateTaskModal();
     const assignWorkerModal = useAssignWorkerModal()
 

@@ -7,17 +7,17 @@ import JobNotesTab from "@/components/tabs/job-notes.tsx";
 import StateShower from "@/components/state-shower.tsx";
 import {Select} from "@/components/ui/select.tsx";
 import {capitalizedText} from "@/lib";
-import {OrderStatusType} from "@/types/reports";
+import {OrderStatus} from "@/types/reports";
 
 const OrderInfo = () => {
     const [tab, setTab] = useState<"ORDER_INFO" | "JOB_NOTES">("ORDER_INFO");
     const {reportId} = useParams();
-    const [orderStatus, setOrderStatus] = useState<OrderStatusType>();
+    const [orderStatus, setOrderStatus] = useState<OrderStatus>();
 
     const getSingleOrderQuery = useGetSingleOrder(Number(reportId));
     const orderInfo: SingleOrderType = getSingleOrderQuery.data?.data?.info;
 
-    const handleOrderStatusChange = (value: OrderStatusType) => {
+    const handleOrderStatusChange = (value: OrderStatus) => {
         setOrderStatus(value);
     };
 
@@ -48,7 +48,7 @@ const OrderInfo = () => {
                             {id: "UNCOMPLETED", name_uz: "Uncompleted"},
                             {id: "REJECTED", name_uz: "Rejected"},
                         ]}
-                        selectedValue={(value) => handleOrderStatusChange(value as OrderStatusType)}
+                        selectedValue={(value) => handleOrderStatusChange(value as OrderStatus)}
                     />
                 </div>
             </div>

@@ -4,7 +4,7 @@ import * as React from "react";
 import {FiEdit} from "react-icons/fi";
 import {Link} from "react-router-dom";
 import {useSetReportIdStore} from "@/hooks/useZustand.tsx";
-import {OrderStatusType} from "@/types/reports";
+import {OrderStatus} from "@/types/reports";
 import {capitalizedText} from "@/lib";
 
 export type OrderTableType = {
@@ -17,7 +17,7 @@ export type OrderTableType = {
     address: string,
     city: string,
     state: string,
-    status: OrderStatusType,
+    status: OrderStatus,
     assigned_workers: {
         assignmentId: number,
         worker: string
