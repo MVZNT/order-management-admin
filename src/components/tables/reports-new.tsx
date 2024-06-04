@@ -10,7 +10,6 @@ type ReportTableProps = {
 }
 
 const ReportsTableNew = ({data}: ReportTableProps) => {
-
     return (
         <div className="bg-white shadow rounded-md text-sm p-4">
             <div className="flex mr-4 reports_table font-medium">
@@ -55,10 +54,10 @@ const ReportsTableNew = ({data}: ReportTableProps) => {
                                                     <TableRow>
                                                         <TableCell>{task.desc}</TableCell>
                                                         <TableCell>{task.quantity}</TableCell>
-                                                        <TableCell>{numberSpacer(task.price | 0)} usd</TableCell>
-                                                        <TableCell>{numberSpacer(task.total | 0)} usd</TableCell>
-                                                        <TableCell>{formatTimeSeconds(task.completion?.spent_time | 0)}</TableCell>
-                                                        <TableCell>{numberSpacer(task.completion?.spent_amount)} usd</TableCell>
+                                                        <TableCell>{task.price ? numberSpacer(task.price) : 0} usd</TableCell>
+                                                        <TableCell>{task.total ? numberSpacer(task.total) : 0} usd</TableCell>
+                                                        <TableCell>{task.completion?.spent_time ? formatTimeSeconds(task.completion?.spent_time) : 0}</TableCell>
+                                                        <TableCell>{task.completion?.spent_amount ? numberSpacer(task.completion?.spent_amount) : 0} usd</TableCell>
                                                     </TableRow>
 
                                                     {index === array.length - 1 && (
@@ -66,19 +65,16 @@ const ReportsTableNew = ({data}: ReportTableProps) => {
                                                             <TableCell>Total</TableCell>
                                                             <TableCell></TableCell>
                                                             <TableCell></TableCell>
-                                                            <TableCell>{numberSpacer(order.task.overall.total_tasks_price | 0)} usd</TableCell>
-                                                            <TableCell>{formatTimeSeconds(order.task.overall.spent_time)}</TableCell>
-                                                            <TableCell>{numberSpacer(order.task.overall.spent_amount)} usd</TableCell>
+                                                            <TableCell>{order.task.overall.total_tasks_price ? numberSpacer(order.task.overall.total_tasks_price) : 0} usd</TableCell>
+                                                            <TableCell>{order.task.overall.spent_time ? formatTimeSeconds(order.task.overall.spent_time) : 0}</TableCell>
+                                                            <TableCell>{order.task.overall.spent_amount ? numberSpacer(order.task.overall.spent_amount) : 0} usd</TableCell>
                                                         </TableRow>
                                                     )}
                                                 </React.Fragment>
                                             ))
                                         }
-
-
                                     </TableBody>
                                 </Table>
-
                             </AccordionContent>
                         </AccordionItem>
                     ))

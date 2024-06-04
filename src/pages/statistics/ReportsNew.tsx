@@ -43,6 +43,7 @@ const Reports = () => {
         setWorker({key: 0, value: undefined})
     }
 
+
     if (reportsData?.orders.list?.length === 0) {
         return <StateShower id={"no_data"} name={"No data"}/>
     }
@@ -135,7 +136,6 @@ const Reports = () => {
                                 className={"w-full"}
                             />
                         </div>
-
                     </div>
                     <div className={"flex gap-2"}>
                         <DatePickerDemo placeholder={"From Date"} date={from_date} setDate={setFromDate}/>
