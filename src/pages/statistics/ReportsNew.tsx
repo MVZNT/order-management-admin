@@ -94,11 +94,14 @@ const Reports = () => {
                                     <li>Hourly rate: <span
                                         className={"font-medium"}>{workerInfo?.hourly_pay_rate} usd</span></li>
                                     <li>Worked hours: <span
-                                        className={"font-medium"}>{formatTimeSeconds(workerInfo?.worked_hours)}</span></li>
+                                        className={"font-medium"}>{workerInfo?.worked_hours ? formatTimeSeconds(workerInfo?.worked_hours) : 0}</span>
+                                    </li>
                                     <li>Total salary: <span
-                                        className={"font-medium"}>{numberSpacer(workerInfo?.total_salary)}</span></li>
+                                        className={"font-medium"}>{workerInfo?.total_salary ? numberSpacer(workerInfo?.total_salary) : 0}</span>
+                                    </li>
                                     <li>Expenses: <span
-                                        className={"font-medium"}>{numberSpacer(workerInfo?.expenses)} usd</span></li>
+                                        className={"font-medium"}>{workerInfo?.expenses ? numberSpacer(workerInfo?.expenses) : 0} usd</span>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
