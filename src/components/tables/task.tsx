@@ -10,7 +10,7 @@ import {useState} from "react";
 import {TaskForm} from "@/components/forms";
 import {ChangeCompletionStatus} from "@/components";
 import {AiOutlineDelete} from "react-icons/ai";
-import {capitalizedText} from "@/lib";
+import {capitalizedText, numberSpacer} from "@/lib";
 
 const TasksTable = ({data, onChangeIsVisible, onDelete}: {
     data: SingleTaskType[],
@@ -57,12 +57,12 @@ const TasksTable = ({data, onChangeIsVisible, onDelete}: {
             <Table className="max-lg:w-[700px]">
                 <TableHeader>
                     <TableRow>
-                        <TableHead className={"min-w-40"}>ID</TableHead>
-                        <TableHead className={"min-w-60"}>Description</TableHead>
+                        <TableHead className={"min-w-14"}>ID</TableHead>
+                        <TableHead className={"min-w-40"}>Description</TableHead>
                         <TableHead className={"min-w-14"}>Qty</TableHead>
-                        <TableHead className={"min-w-14"}>Price</TableHead>
-                        <TableHead className={"min-w-14"}>Total</TableHead>
-                        <TableHead className={"min-w-64"}>Additional Instructions</TableHead>
+                        <TableHead className={"min-w-24"}>Price</TableHead>
+                        <TableHead className={"min-w-24"}>Total</TableHead>
+                        <TableHead className={"min-w-60"}>Additional Instructions</TableHead>
                         <TableHead className={"min-w-32"}>IsVisible</TableHead>
                         <TableHead className={"min-w-28"}>IsCompleted</TableHead>
                         <TableHead className={"min-w-28"}>Actions</TableHead>
@@ -75,12 +75,14 @@ const TasksTable = ({data, onChangeIsVisible, onDelete}: {
                                 <TableCell>{task.id}</TableCell>
                                 <TableCell>{task.desc.charAt(0).toUpperCase() + task.desc.slice(1).toLowerCase()}</TableCell>
                                 <TableCell>{task.qty}</TableCell>
-                                <TableCell>{task.price}</TableCell>
-                                <TableCell>{task.total}</TableCell>
+                                <TableCell>{task.price ? `${numberSpacer(task.price)} usd` : task?.price}</TableCell>
+                                <TableCell>{task.total ? `${numberSpacer(task.total)} usd` : task?.price}</TableCell>
                                 <TableCell>{capitalizedText(task?.add || "")}</TableCell>
                                 <TableCell>
-                                    <Switch checked={task.isVisible}
-                                            onClick={() => onChangeIsVisible(task.id, task.isVisible)}/>
+                                    <Switch
+                                        checked={task.isVisible}
+                                        onClick={() => onChangeIsVisible(task.id, task.isVisible)}
+                                    />
                                 </TableCell>
 
                                 <TableCell>
