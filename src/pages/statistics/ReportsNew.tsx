@@ -9,7 +9,6 @@ import {SearchableSelect} from "@/components";
 import DatePickerDemo from "@/components/ui/date-picker.tsx";
 import {useGetReports} from "@/hooks/useReports.ts";
 import {GetReportsType} from "@/types/reports";
-import StateShower from "@/components/state-shower.tsx";
 
 const Reports = () => {
     const [worker, setWorker] = useState<SelectItemProps>();
@@ -41,11 +40,6 @@ const Reports = () => {
 
     const onClearWorker = () => {
         setWorker({key: 0, value: undefined})
-    }
-
-
-    if (reportsData?.orders.list?.length === 0) {
-        return <StateShower id={"no_data"} name={"No data"}/>
     }
 
     const workerInfo = reportsData?.orders?.overall?.worker
