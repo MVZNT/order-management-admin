@@ -10,6 +10,7 @@ import {Input} from "../ui/input";
 import TextArea from "@/components/ui/text-area.tsx";
 import {SingleTaskType} from "@/types/tasks";
 import {useCreateTask, useUpdateTask} from "@/hooks/useTask.ts";
+import {useEffect, useState} from "react";
 
 type WorkerFormType = {
     action: "CREATE" | "EDIT",
@@ -18,31 +19,39 @@ type WorkerFormType = {
 }
 
 const TaskForm = ({action, data, report_id}: WorkerFormType) => {
-
     const form = useForm<z.infer<typeof TaskSchema>>({
         resolver: zodResolver(TaskSchema),
         defaultValues: {
             qty: data?.qty,
             price: data?.price,
-            total: data?.total,
             add: data?.add,
             desc: data?.desc || ""
         }
     });
 
+    const [totalPrice, setTotalPrice] = useState<number | string>("--")
+
     const createTaskMutation = useCreateTask();
     const updateTaskMutation = useUpdateTask();
+
+    useEffect(() => {
+        setTotalPrice(Number(form.getValues("price")) * Number(form.getValues("qty")))
+    }, [form.watch()]);
 
     function onSubmit(values: z.infer<typeof TaskSchema>) {
         if (action === "CREATE") {
             createTaskMutation.mutate({
                 report_id,
+                total: +totalPrice,
                 ...values
             })
         } else if (action === "EDIT") {
             updateTaskMutation.mutate({
                 taskId: data?.id!,
-                data: values
+                data: {
+                    total: +totalPrice,
+                    ...values
+                }
             })
         } else {
             return null
@@ -58,7 +67,7 @@ const TaskForm = ({action, data, report_id}: WorkerFormType) => {
                 <h1 className="text-xl font-semibold text-center">{action === "CREATE" ? "Create task" : "Edit task"}</h1>
 
                 <div className={"flex flex-col gap-2"}>
-                    <div className="flex gap-2">
+                    <div className="flex gap-4">
                         {/* Quantity */}
                         <FormField
                             control={form.control}
@@ -82,27 +91,21 @@ const TaskForm = ({action, data, report_id}: WorkerFormType) => {
                                 <FormItem>
                                     <FormLabel>Price:</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="enter price" type={"number"}{...field} />
+                                        <Input
+                                            placeholder="enter price"
+                                            type={"number"}
+                                            {...field}
+                                        />
                                     </FormControl>
                                     <FormMessage/>
                                 </FormItem>
                             )}
                         />
 
-                        {/* Total amount */}
-                        <FormField
-                            control={form.control}
-                            name="total"
-                            render={({field}) => (
-                                <FormItem>
-                                    <FormLabel>Total:</FormLabel>
-                                    <FormControl>
-                                        <Input placeholder="enter total" type={"number"} {...field} />
-                                    </FormControl>
-                                    <FormMessage/>
-                                </FormItem>
-                            )}
-                        />
+                        <div className={"flex flex-col gap-1 text-sm mt-1"}>
+                            <span className={"font-medium"}>Total:</span>
+                            <h1 className={"mt-[10px]"}>{isNaN(+totalPrice) ? "--" : `${totalPrice} usd`}</h1>
+                        </div>
                     </div>
 
                     {/* Description */}

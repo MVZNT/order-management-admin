@@ -45,23 +45,15 @@ export const ExpenseSchema = z.object({
 })
 
 export const TaskSchema = z.object({
-    desc: z.string({
-        required_error: "description is required!",
-    }).min(1, "description is required!"),
+    desc: z.string().optional(),
     qty: z.coerce.number({
-        // invalid_type_error: "quantity is required!"
-    }).default(0),
+        invalid_type_error: "quantity is required!"
+    }).min(1, "quantity is required!"),
     price: z.coerce.number({
-        required_error: "price is required!",
-    }).default(0),
-    total: z.coerce.number({
-        required_error: `total is required!`,
-    }).default(0),
-    add: z.string({
-        required_error: "additional info is required!",
-    }).optional(),
+        invalid_type_error: "price is required!"
+    }).min(1, "price is required!"),
+    add: z.string().optional(),
 })
-
 
 export const AdminSchema = z.object({
     role: z.any(),

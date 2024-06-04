@@ -44,9 +44,10 @@ const OrderInfo = () => {
                     <Select
                         defaultValue={orderInfo?.status ? capitalizedText(orderInfo?.status) : "Select order status"}
                         data={[
-                            {id: "COMPLETED", name_uz: "Completed"},
+                            {id: "NEW", name_uz: "New"},
                             {id: "UNCOMPLETED", name_uz: "Uncompleted"},
-                            {id: "REJECTED", name_uz: "Rejected"},
+                            {id: "COMPLETED", name_uz: "Completed"},
+                            {id: "REJECTED", name_uz: "Rejected"}
                         ]}
                         selectedValue={(value) => handleOrderStatusChange(value as OrderStatus)}
                     />

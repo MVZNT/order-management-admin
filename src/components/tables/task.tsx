@@ -10,6 +10,7 @@ import {useState} from "react";
 import {TaskForm} from "@/components/forms";
 import {ChangeCompletionStatus} from "@/components";
 import {AiOutlineDelete} from "react-icons/ai";
+import {capitalizedText} from "@/lib";
 
 const TasksTable = ({data, onChangeIsVisible, onDelete}: {
     data: SingleTaskType[],
@@ -76,7 +77,7 @@ const TasksTable = ({data, onChangeIsVisible, onDelete}: {
                                 <TableCell>{task.qty}</TableCell>
                                 <TableCell>{task.price}</TableCell>
                                 <TableCell>{task.total}</TableCell>
-                                <TableCell>{task.add.charAt(0).toUpperCase() + task.add.slice(1).toLowerCase()}</TableCell>
+                                <TableCell>{capitalizedText(task?.add || "")}</TableCell>
                                 <TableCell>
                                     <Switch checked={task.isVisible}
                                             onClick={() => onChangeIsVisible(task.id, task.isVisible)}/>

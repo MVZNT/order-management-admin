@@ -83,9 +83,6 @@ const OrderInfoTab = ({orderStatus, data}: { orderStatus: OrderStatus, data: Sin
             }
         })
     }
-
-    console.log(orderInfo.date_received)
-
     return (
         <>
             <DialogModal
