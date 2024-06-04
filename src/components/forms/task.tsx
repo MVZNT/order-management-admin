@@ -1,4 +1,4 @@
-import {TaskSchema} from "@/lib";
+import {numberSpacer, TaskSchema} from "@/lib";
 
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -104,7 +104,7 @@ const TaskForm = ({action, data, report_id}: WorkerFormType) => {
 
                         <div className={"flex flex-col gap-1 text-sm mt-1"}>
                             <span className={"font-medium"}>Total:</span>
-                            <h1 className={"mt-[10px]"}>{isNaN(+totalPrice) ? "--" : `${totalPrice} usd`}</h1>
+                            <h1 className={"mt-[10px]"}>{isNaN(+totalPrice) ? "--" : `${numberSpacer(+totalPrice)} usd`}</h1>
                         </div>
                     </div>
 
