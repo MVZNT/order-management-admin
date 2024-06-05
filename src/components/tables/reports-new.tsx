@@ -22,6 +22,7 @@ const ReportsTableNew = ({data}: ReportTableProps) => {
                 <span>Assigned Worker</span>
             </div>
 
+
             {
                 data?.orders?.list?.length === 0
                     ? <StateShower id={"no_data"} name={"No reports found!"}/>
@@ -36,7 +37,7 @@ const ReportsTableNew = ({data}: ReportTableProps) => {
                                             <span>{order.address}</span>
                                             <span>{order.status}</span>
                                             <span>{order?.completed_date ? dateFormatter(order?.completed_date) : ""}</span>
-                                            <span>{order?.task?.list[0]?.completion?.worker?.name}</span>
+                                            <span>{order?.workers}</span>
                                         </div>
                                     </AccordionTrigger>
                                     <AccordionContent className={"bg-primary/5 border border-black/10"}>

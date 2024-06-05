@@ -70,6 +70,7 @@ export interface ReportOrderType {
     address: string;
     status: OrderStatus;
     completed_date: string | null;
+    workers: string,
     task: TaskList;
 }
 
