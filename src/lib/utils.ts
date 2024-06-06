@@ -37,7 +37,7 @@ export const customToast = (type: "SUCCESS" | "ERROR", message: string) => {
 };
 
 export const dateFormatter = (date: string) => {
-    const paddedShortDate = dateFormat(date, "dd/mm/yyyy");
+    const paddedShortDate = dateFormat(date, "mm/dd/yyyy");
     const shortTime = dateFormat(date, "HH:MM");
 
     return `${paddedShortDate}, ${shortTime}`;
