@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: 'https://api.ninjasgroup.io',
+    baseURL: import.meta.env.VITE_API_URL!,
 });
 
 api.interceptors.request.use(async (config) => {
@@ -19,7 +19,7 @@ api.interceptors.response.use(
     },
     async function (error) {
         console.log(error)
-        
+
         // if (error.code === "ERR_NETWORK") {
         //     localStorage.setItem("pathname_on_error", window.location.pathname);
         //     window.location.href = "/500";

@@ -1,0 +1,27 @@
+name: ninjasgroup.io / CD
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Connect VPS and deploy changes
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd order-managment/admin/
+            git pull origin main
+            npm install
+            npm run build
+            rm -r /var/www/order-management/admin/*
+            cp -r dist/* /var/www/order-management/admin/
+            sudo systemctl restart nginx
+            sudo systemctl status nginx
