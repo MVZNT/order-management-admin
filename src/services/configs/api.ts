@@ -18,6 +18,8 @@ api.interceptors.response.use(
         return response;
     },
     async function (error) {
+        console.log(error)
+        
         // if (error.code === "ERR_NETWORK") {
         //     localStorage.setItem("pathname_on_error", window.location.pathname);
         //     window.location.href = "/500";
