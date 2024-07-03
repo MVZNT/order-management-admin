@@ -83,13 +83,6 @@ export const OrdersTableColumns: ColumnDef<OrderTableType>[] = [
         enableHiding: false,
     },
     {
-        accessorKey: "report_id",
-        header: "Report Id",
-        cell: ({row}) => (
-            <div className="capitalize">{row.getValue("report_id")}</div>
-        ),
-    },
-    {
         accessorKey: "status",
         header: "Status",
         cell: ({row}) => (
@@ -160,20 +153,20 @@ export const OrdersTableColumns: ColumnDef<OrderTableType>[] = [
         accessorKey: "actions",
         header: "Actions",
         cell: ({row}) => {
-            const {setReportId} = useSetReportIdStore()
-
+            const {setReportId} = useSetReportIdStore();
+    
             const onLinkClick = (report_id: number) => {
-                setReportId(report_id)
-            }
-
+                setReportId(report_id);
+            };
+    
             return (
                 <div className="flex gap-2">
-                    <Link to={`/order/${row.getValue("report_id")}`}
-                          onClick={() => onLinkClick(row.getValue("report_id"))}>
+                    <Link to={`/order/${row.original.report_id}`}
+                          onClick={() => onLinkClick(row.original.report_id)}>
                         <FiEdit className="text-[18px] text-amber-700 opacity-60 font-bold cursor-pointer"/>
                     </Link>
                 </div>
-            )
+            );
         },
     },
 ]

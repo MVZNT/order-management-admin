@@ -43,7 +43,7 @@ const Orders = () => {
 
     const getSyncLogQuery = useGetOrdersSyncLog()
     const getOrdersQuery = useGetOrders({
-        report_id: +keyword!
+        wo_number: keyword
     })
 
     const ordersData: GetOrdersType = getOrdersQuery.data?.data
@@ -131,8 +131,20 @@ const Orders = () => {
                         <span className={"text-sm"}>{!isFiltered ? "Filter" : "Filtered"}</span>
                     </div>
 
-                    <Input placeholder={"Search by report id..."} type={"number"} className={"w-56"}
-                           onChange={(e) => setKeyword(e.target.value)}/>
+                    <Input placeholder={"Search by WO number..."} type={"string"} className={"w-56"}
+                        onChange={(e) => setKeyword(e.target.value)}
+                        />
+                        
+    
+                    {keyword && (
+                        <button
+                            type = "button"
+                            onClick = {() => setKeyword("")}
+                            className = "transform-9 -translate-x-9"
+                        >
+                            &times;
+                        </button>
+                    )}
                 </div>
 
                 <div className={"flex gap-2 max-lg:justify-end"}>
