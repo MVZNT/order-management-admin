@@ -104,6 +104,13 @@ export const OrdersTableColumns: ColumnDef<OrderTableType>[] = [
         ),
     },
     {
+        accessorKey: "work_type_alias",
+        header: "Work Type",
+        cell: ({row}) => (
+            <div className="capitalize">{row.getValue("work_type_alias")}</div>
+        ),
+    },
+    {
         accessorKey: "date_due",
         header: "Date Due",
         cell: ({row}) => (
