@@ -26,7 +26,7 @@ const ReportsTableNew = ({data}: ReportTableProps) => {
             {
                 data?.orders?.list?.length === 0
                     ? <StateShower id={"no_data"} name={"No reports found!"}/>
-                    : <Accordion type="single" collapsible>
+                    : <Accordion type="multiple" collapsible>
                         {
                             data?.orders?.list?.map(order => (
                                 <AccordionItem key={order.report_id} value={`item-${order.report_id}`}>
