@@ -8,6 +8,7 @@ import {OrderStatus} from "@/types/reports";
 import {capitalizedText} from "@/lib";
 import {SingleTaskType} from "@/types";
 import {SingleJobNoteType} from "@/types/job-notes";
+import {format, parse} from "date-fns";
 
 export type OrderTableType = {
     id: number;
@@ -48,7 +49,7 @@ export type OrderTableType = {
     has_foh: boolean;
     coordinates: string | null;
     bit_photos_url: string | null;
-    status: OrderStatus
+    status: OrderStatus;
     createdAt: string;
     updatedAt: string;
     assigned_workers: {
@@ -106,23 +107,27 @@ export const OrdersTableColumns: ColumnDef<OrderTableType>[] = [
     {
         accessorKey: "date_due",
         header: "Date Due",
-        cell: ({row}) => (
-            <div className="capitalize">{row?.getValue("date_due")}</div>
-        ),
+        cell: ({row}) => {
+            const date = parse(row?.getValue("date_due"), "yyyyMMdd", new Date());
+            return <div className="capitalize">{format(date, "MM/dd/yyyy")}</div>;
+        },
     },
     {
         accessorKey: "date_received",
         header: "Date Received",
-        cell: ({row}) => (
-            <div className="capitalize">{row?.getValue("date_received")}</div>
-        ),
+        cell: ({row}) => {
+            const date = parse(row?.getValue("date_received"), "yyyyMMdd", new Date());
+            return <div className="capitalize">{format(date, "MM/dd/yyyy")}</div>;
+        },
     },
     {
         accessorKey: "address",
         header: "Address",
-        cell: ({row}) => (
-            <div className="capitalize">{row.getValue("address")}</div>
-        ),
+        cell: ({row}) => {
+            const address = (row.getValue("address") || "") as string;
+            const formattedAddress = address.split(' ').join('\u00a0'); // Replace spaces with non-breaking spaces
+            return <div className="capitalize">{formattedAddress}</div>;
+        },
     },
     {
         accessorKey: "city",
@@ -142,11 +147,10 @@ export const OrdersTableColumns: ColumnDef<OrderTableType>[] = [
         accessorKey: "assigned_workers",
         header: "Assigned Workers",
         cell: ({row}) => {
-            const workers: { assignmentId: number, worker: string }[] = row.getValue("assigned_workers")
+            const workers: { assignmentId: number, worker: string }[] = row.getValue("assigned_workers");
             return (
-                <div
-                    className="capitalize">{workers?.length === 0 ? "---" : workers.map(worker => worker?.worker).join(", ")}</div>
-            )
+                <div className="capitalize">{workers?.length === 0 ? "---" : workers.map(worker => worker?.worker).join(", ")}</div>
+            );
         },
     },
     {
@@ -154,19 +158,17 @@ export const OrdersTableColumns: ColumnDef<OrderTableType>[] = [
         header: "Actions",
         cell: ({row}) => {
             const {setReportId} = useSetReportIdStore();
-    
             const onLinkClick = (report_id: number) => {
                 setReportId(report_id);
             };
-    
             return (
                 <div className="flex gap-2">
                     <Link to={`/order/${row.original.report_id}`}
-                          onClick={() => onLinkClick(row.original.report_id)}>
+                    onClick={() => onLinkClick(row.original.report_id)}>
                         <FiEdit className="text-[18px] text-amber-700 opacity-60 font-bold cursor-pointer"/>
                     </Link>
                 </div>
             );
         },
     },
-]
+];
