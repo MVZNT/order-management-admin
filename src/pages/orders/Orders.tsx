@@ -25,9 +25,13 @@ import {GetOrdersType} from "@/types/orders";
 import {FaFilter} from "react-icons/fa6";
 import {dateFormatter} from "@/lib";
 import StateShower from "@/components/state-shower.tsx";
+import { IoClose } from "react-icons/io5";
 
 
 const Orders = () => {
+    const clearKeyword = () => {
+        setKeyword("");
+    };
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
     const [rowSelection, setRowSelection] = useState({})
     const [selectedOrders, setSelectedOrders] = useState<OrderTableType[]>()
@@ -43,7 +47,7 @@ const Orders = () => {
 
     const getSyncLogQuery = useGetOrdersSyncLog()
     const getOrdersQuery = useGetOrders({
-        wo_number: keyword
+        wo_number: keyword!
     })
 
     const ordersData: GetOrdersType = getOrdersQuery.data?.data
@@ -130,21 +134,21 @@ const Orders = () => {
 
                         <span className={"text-sm"}>{!isFiltered ? "Filter" : "Filtered"}</span>
                     </div>
-
-                    <Input placeholder={"Search by WO number..."} type={"string"} className={"w-56"}
-                        onChange={(e) => setKeyword(e.target.value)}
-                        />
-                        
-    
-                    {keyword && (
-                        <button
-                            type = "button"
-                            onClick = {() => setKeyword("")}
-                            className = "transform-9 -translate-x-9"
-                        >
-                            &times;
-                        </button>
-                    )}
+                    <div className="relative">
+        <Input
+            placeholder={"Search by WO#"}
+            type={"text"}
+            className={"w-56 pr-10"} // Add padding to the right to accommodate the icon
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+        />
+        {keyword && (
+            <IoClose
+                className="absolute top-1/2 transform -translate-y-1/2 right-3 cursor-pointer" // Center the icon vertically and position it to the right
+                onClick={clearKeyword}
+            />
+        )}
+    </div>
                 </div>
 
                 <div className={"flex gap-2 max-lg:justify-end"}>
