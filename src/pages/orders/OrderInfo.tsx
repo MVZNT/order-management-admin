@@ -54,7 +54,7 @@ const OrderInfo = () => {
                 </div>
             </div>
 
-            {getSingleOrderQuery.isLoading ? (
+            {getSingleOrderQuery.isFetching ? (
                 <StateShower id={"loading"} name={"Loading..."}/>
             ) : getSingleOrderQuery.isError ? (
                 <StateShower id={"error"} name={"Something went wrong! Please try again!"}/>
