@@ -122,6 +122,7 @@ const FilterOrdersForm = () => {
                     <Select
                         defaultValue={status ? status : "Select status"}
                         data={[
+                            {id: "NEW", name_uz: "New"},
                             {id: "COMPLETED", name_uz: "Completed"},
                             {id: "UNCOMPLETED", name_uz: "Uncompleted"},
                             {id: "REJECTED", name_uz: "Rejected"},
