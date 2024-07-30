@@ -1,150 +1,153 @@
-import React, {useEffect, useState} from "react";
-import {formatTimeSeconds, numberSpacer} from "@/lib";
-import {SelectItemProps} from "@/components/searchable-select.tsx";
-import {useGetWorkers} from "@/hooks/useWorker.ts";
-import {WorkerType} from "@/types/worker";
-import {ReportsTableNew} from "@/components/tables";
-import {MdOutlineClear} from "react-icons/md";
-import {SearchableSelect} from "@/components";
+import React, { useEffect, useState } from "react";
+import { formatTimeSeconds, numberSpacer } from "@/lib";
+import { SelectItemProps } from "@/components/searchable-select.tsx";
+import { useGetWorkers } from "@/hooks/useWorker.ts";
+import { WorkerType } from "@/types/worker";
+import { ReportsTableNew } from "@/components/tables";
+import { MdOutlineClear } from "react-icons/md";
+import { SearchableSelect } from "@/components";
 import DatePickerDemo from "@/components/ui/date-picker.tsx";
-import {useGetReports} from "@/hooks/useReports.ts";
-import {GetReportsType} from "@/types/reports";
+import { useGetReports } from "@/hooks/useReports.ts";
+import { GetReportsType } from "@/types/reports";
 
 const Reports = () => {
     const [worker, setWorker] = useState<SelectItemProps>();
-
     const [keyword, setKeyword] = useState("");
     const [from_date, setFromDate] = useState<Date | undefined>(undefined);
     const [to_date, setToDate] = useState<Date | undefined>(undefined);
 
     // get workers query
-    const getWorkersQuery = useGetWorkers(keyword)
-    const workersData: WorkerType[] = getWorkersQuery.data?.data?.workers
+    const getWorkersQuery = useGetWorkers(keyword);
+    const workersData: WorkerType[] = getWorkersQuery.data?.data?.workers;
+
+    // Helper function to adjust "To Date"
+    const adjustToDate = (date: Date | undefined): string | undefined => {
+        if (!date) return undefined;
+        const adjustedDate = new Date(date);
+        adjustedDate.setHours(23, 59, 59, 999);
+        return adjustedDate.toISOString();
+    };
 
     // get reports query
     const getReportsQuery = useGetReports(
         worker?.key ? +worker?.key! : undefined,
         from_date?.toISOString(),
-        to_date?.toISOString()
-    )
+        adjustToDate(to_date)
+    );
 
-    const reportsData: GetReportsType = getReportsQuery.data?.data
+    const reportsData: GetReportsType = getReportsQuery.data?.data;
 
     useEffect(() => {
-        getWorkersQuery.refetch()
+        getWorkersQuery.refetch();
     }, [keyword]);
 
     useEffect(() => {
-        getReportsQuery.refetch()
+        getReportsQuery.refetch();
     }, [worker, from_date, to_date]);
 
     const onClearWorker = () => {
-        setWorker({key: 0, value: undefined})
-    }
+        setWorker({ key: 0, value: undefined });
+    };
 
-    const workerInfo = reportsData?.orders?.overall?.worker
-
-    const orderStats = reportsData?.orders?.stats?.orders
-    const taskStats = reportsData?.orders?.stats?.tasks
+    const workerInfo = reportsData?.orders?.overall?.worker;
+    const orderStats = reportsData?.orders?.stats?.orders;
+    const taskStats = reportsData?.orders?.stats?.tasks;
 
     return (
         <>
-            <div className={"flex gap-5"}>
-                <div className={"flex flex-col w-2/3 text-sm gap-5"}>
-                    <div className={"grid grid-cols-2  gap-5"}>
-                        <div className={"flex flex-col gap-2 px-5 py-3 bg-white border rounded"}>
-                            <h1 className={"font-medium border-b border-/30 pb-[2px] text-primary"}>Work Orders:</h1>
-                            <ul className={"ml-2 flex gap-6 justify-between"}>
-                                <li className={"flex flex-col"}>Total: <span
-                                    className={"font-medium"}>{orderStats?.total_orders}</span></li>
-                                <li className={"flex flex-col"}>Completed: <span
-                                    className={"font-medium"}>{orderStats?.completed_orders}</span>
+            <div className="flex gap-5">
+                <div className="flex flex-col w-2/3 text-sm gap-5">
+                    <div className="grid grid-cols-2 gap-5">
+                        <div className="flex flex-col gap-2 px-5 py-3 bg-white border rounded">
+                            <h1 className="font-medium border-b border-/30 pb-[2px] text-primary">Work Orders:</h1>
+                            <ul className="ml-2 flex gap-6 justify-between">
+                                <li className="flex flex-col">
+                                    Total: <span className="font-medium">{orderStats?.total_orders}</span>
                                 </li>
-                                <li className={"flex flex-col"}>Uncompleted: <span
-                                    className={"font-medium"}>{orderStats?.uncompleted_orders}</span>
+                                <li className="flex flex-col">
+                                    Completed: <span className="font-medium">{orderStats?.completed_orders}</span>
                                 </li>
-                                <li className={"flex flex-col"}>Rejected: <span
-                                    className={"font-medium"}>{orderStats?.rejected_orders}</span>
+                                <li className="flex flex-col">
+                                    Uncompleted: <span className="font-medium">{orderStats?.uncompleted_orders}</span>
+                                </li>
+                                <li className="flex flex-col">
+                                    Rejected: <span className="font-medium">{orderStats?.rejected_orders}</span>
                                 </li>
                             </ul>
                         </div>
 
-                        <div className={"flex flex-col gap-3 px-5 py-3 bg-white border rounded "}>
-                            <h1 className={"font-medium border-b border-black/20 pb-[2px] text-primary"}>Tasks:</h1>
-                            <ul className={"ml-2 flex gap-6 justify-between"}>
-                                <li className={"flex flex-col"}>Total: <span
-                                    className={"font-medium"}>{taskStats?.total_tasks}</span></li>
-                                <li className={"flex flex-col"}>Completed:<span
-                                    className={"font-medium"}>{taskStats?.completed_tasks}</span>
+                        <div className="flex flex-col gap-3 px-5 py-3 bg-white border rounded">
+                            <h1 className="font-medium border-b border-black/20 pb-[2px] text-primary">Tasks:</h1>
+                            <ul className="ml-2 flex gap-6 justify-between">
+                                <li className="flex flex-col">
+                                    Total: <span className="font-medium">{taskStats?.total_tasks}</span>
                                 </li>
-                                <li className={"flex flex-col"}>Uncompleted:<span
-                                    className={"font-medium"}>{taskStats?.uncompleted_tasks}</span>
+                                <li className="flex flex-col">
+                                    Completed: <span className="font-medium">{taskStats?.completed_tasks}</span>
+                                </li>
+                                <li className="flex flex-col">
+                                    Uncompleted: <span className="font-medium">{taskStats?.uncompleted_tasks}</span>
                                 </li>
                             </ul>
                         </div>
                     </div>
 
-                    {
-                        reportsData?.orders?.overall?.worker && <div className={`flex justify-between gap-5`}>
-                            <div className={"flex flex-col gap-3 px-5 py-3 w-full bg-white border rounded "}>
-                                <h1 className={"font-medium border-b border-black/20 pb-[2px] text-primary"}>Worker
-                                    info:</h1>
-                                <ul className={"w-full flex justify-between flex-wrap gap-3 text-sm"}>
-                                    <li>Name: <span className={"font-medium"}>{workerInfo?.name}</span></li>
-                                    <li>Hourly rate: <span
-                                        className={"font-medium"}>{workerInfo?.hourly_pay_rate} usd</span></li>
-                                    <li>Worked hours: <span
-                                        className={"font-medium"}>{workerInfo?.worked_hours ? formatTimeSeconds(workerInfo?.worked_hours) : 0}</span>
+                    {workerInfo && (
+                        <div className="flex justify-between gap-5">
+                            <div className="flex flex-col gap-3 px-5 py-3 w-full bg-white border rounded">
+                                <h1 className="font-medium border-b border-black/20 pb-[2px] text-primary">Worker info:</h1>
+                                <ul className="w-full flex justify-between flex-wrap gap-3 text-sm">
+                                    <li>
+                                        Name: <span className="font-medium">{workerInfo?.name}</span>
                                     </li>
-                                    <li>Total salary: <span
-                                        className={"font-medium"}>{workerInfo?.total_salary ? numberSpacer(workerInfo?.total_salary) : 0}</span>
+                                    <li>
+                                        Hourly rate: <span className="font-medium">{workerInfo?.hourly_pay_rate} usd</span>
                                     </li>
-                                    <li>Expenses: <span
-                                        className={"font-medium"}>{workerInfo?.expenses ? numberSpacer(workerInfo?.expenses) : 0} usd</span>
+                                    <li>
+                                        Worked hours: <span className="font-medium">{workerInfo?.worked_hours ? formatTimeSeconds(workerInfo?.worked_hours) : 0}</span>
+                                    </li>
+                                    <li>
+                                        Total salary: <span className="font-medium">{workerInfo?.total_salary ? numberSpacer(workerInfo?.total_salary) : 0}</span>
+                                    </li>
+                                    <li>
+                                        Expenses: <span className="font-medium">{workerInfo?.expenses ? numberSpacer(workerInfo?.expenses) : 0} usd</span>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                    }
+                    )}
                 </div>
 
-                <div className={"flex flex-col gap-4 w-1/3"}>
-                    <div className={"flex gap-2 w-full"}>
-                        {
-                            worker?.value &&
-                            <MdOutlineClear
-                                className={"text-xl cursor-pointer"}
-                                onClick={onClearWorker}
-                            />
-                        }
+                <div className="flex flex-col gap-4 w-1/3">
+                    <div className="flex gap-2 w-full">
+                        {worker?.value && (
+                            <MdOutlineClear className="text-xl cursor-pointer" onClick={onClearWorker} />
+                        )}
 
-                        <div className={"w-full "}>
+                        <div className="w-full">
                             <SearchableSelect
-                                defaultPlaceholder={"Select worker"}
-                                data={workersData?.map(worker => {
-                                    return {
-                                        key: worker.id,
-                                        value: worker.name
-                                    }
-                                })}
+                                defaultPlaceholder="Select worker"
+                                data={workersData?.map(worker => ({
+                                    key: worker.id,
+                                    value: worker.name,
+                                }))}
                                 selectedItem={worker}
                                 setSearchValue={setKeyword}
                                 onSelected={setWorker}
-                                className={"w-full"}
+                                className="w-full"
                             />
                         </div>
                     </div>
-                    <div className={"flex gap-2"}>
-                        <DatePickerDemo placeholder={"From Date"} date={from_date} setDate={setFromDate}/>
-                        <DatePickerDemo placeholder={"To Date"} date={to_date} setDate={setToDate}/>
+                    <div className="flex gap-2">
+                        <DatePickerDemo placeholder="From Date" date={from_date} setDate={setFromDate} />
+                        <DatePickerDemo placeholder="To Date" date={to_date} setDate={setToDate} />
                     </div>
                 </div>
             </div>
 
-            <ReportsTableNew data={reportsData}/>
+            <ReportsTableNew data={reportsData} />
         </>
-    )
+    );
 };
 
 export default Reports;
-
