@@ -27,7 +27,7 @@ class Orders {
                 state,
                 zip_code,
                 address,
-                org_wo_number: wo_number,
+                wo_number,
                 workerId
             }
         })
