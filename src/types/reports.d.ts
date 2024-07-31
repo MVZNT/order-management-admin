@@ -65,7 +65,7 @@ export type OrderStatus = "COMPLETED" | "UNCOMPLETED" | "REJECTED"
 
 export interface ReportOrderType {
     report_id: number;
-    wo_number: number;
+    wo_number: string;
     city: string;
     address: string;
     status: OrderStatus;
