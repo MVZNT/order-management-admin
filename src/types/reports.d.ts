@@ -64,6 +64,7 @@ interface Overall {
 export type OrderStatus = "COMPLETED" | "UNCOMPLETED" | "REJECTED"
 
 export interface ReportOrderType {
+    [x: string]: ReactNode;
     report_id: number;
     wo_number: string;
     city: string;
