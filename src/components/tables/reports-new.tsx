@@ -13,7 +13,7 @@ type ReportTableProps = {
 const ReportsTableNew = ({ data }: ReportTableProps) => {
     const [openItems, setOpenItems] = useState<string[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(10);
+    const [itemsPerPage, setItemsPerPage] = useState(25);
 
     // Set all items as open by default when data is loaded
     useEffect(() => {
@@ -48,6 +48,7 @@ const ReportsTableNew = ({ data }: ReportTableProps) => {
             <div className="flex justify-between items-center mb-4">
                 <div className="flex reports_table_header font-medium mb-2 w-full" >
                     <span className="w-1/6">WO number</span>
+                    <span className="w-1/6">Work Type</span>
                     <span className="w-1/6">City</span>
                     <span className="w-1/6">Address</span>
                     <span className="w-1/6">Status</span>
@@ -72,19 +73,19 @@ const ReportsTableNew = ({ data }: ReportTableProps) => {
                                     <AccordionItem key={order.report_id} value={`item-${order.report_id}`}>
                                         <AccordionTrigger>
                                             <div className="flex w-full reports_table cursor-pointer font-normal">
-                                                <span className="w-1/6">
-                                                <a
-                                                    href={`/order/${order.report_id}`}
-                                                    className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-2 text-xs rounded ml-4"
-                                                >Edit
-                                                </a>
-                                                &nbsp;{order.wo_number}</span>
+                                                <span className="w-1/6">{order.wo_number}</span>
+                                                <span className="w-1/6">{order.work_type_alias}</span>
                                                 <span className="w-1/6">{order.city}</span>
                                                 <span className="w-1/6">{order.address}</span>
                                                 <span className="w-1/6">{order.status}</span>
                                                 <span className="w-1/6">{order?.completed_date ? dateFormatter(order?.completed_date) : ""}</span>
                                                 <span className="w-1/6">{order?.workers}</span>
-                                             </div>
+                                                <a
+                                                    href={`/order/${order.report_id}`}
+                                                    className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-2 text-xs rounded ml-4"
+                                                >Edit
+                                                </a>
+                                            </div>
                                         </AccordionTrigger>
                                         <AccordionContent className="bg-primary/5 border border-black/10 p-4">
                                             <div className="flex w-full reports_table_child font-normal">
