@@ -72,7 +72,7 @@ const ReportsTableNew = ({ data }: ReportTableProps) => {
                                     <AccordionItem key={order.report_id} value={`item-${order.report_id}`}>
                                         <AccordionTrigger>
                                             <div className="flex w-full reports_table cursor-pointer font-normal">
-                                                <span className="w-1/6">#{order.wo_number}</span>
+                                                <span className="w-1/6">{order.wo_number}</span>
                                                 <span className="w-1/6">{order.city}</span>
                                                 <span className="w-1/6">{order.address}</span>
                                                 <span className="w-1/6">{order.status}</span>
