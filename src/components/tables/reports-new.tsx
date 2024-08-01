@@ -72,13 +72,19 @@ const ReportsTableNew = ({ data }: ReportTableProps) => {
                                     <AccordionItem key={order.report_id} value={`item-${order.report_id}`}>
                                         <AccordionTrigger>
                                             <div className="flex w-full reports_table cursor-pointer font-normal">
-                                                <span className="w-1/6">{order.wo_number}</span>
+                                                <span className="w-1/6">
+                                                <a
+                                                    href={`/order/${order.report_id}`}
+                                                    className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-2 text-xs rounded ml-4"
+                                                >Edit
+                                                </a>
+                                                &nbsp;{order.wo_number}</span>
                                                 <span className="w-1/6">{order.city}</span>
                                                 <span className="w-1/6">{order.address}</span>
                                                 <span className="w-1/6">{order.status}</span>
                                                 <span className="w-1/6">{order?.completed_date ? dateFormatter(order?.completed_date) : ""}</span>
                                                 <span className="w-1/6">{order?.workers}</span>
-                                            </div>
+                                             </div>
                                         </AccordionTrigger>
                                         <AccordionContent className="bg-primary/5 border border-black/10 p-4">
                                             <div className="flex w-full reports_table_child font-normal">
